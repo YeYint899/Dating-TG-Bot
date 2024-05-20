@@ -163,10 +163,9 @@ def main() -> None:
             'PHOTO': [MessageHandler(filters.PHOTO & ~filters.COMMAND, photo)],
             'SEARCH': [CommandHandler('search', search)],
             'CONNECT': [MessageHandler(filters.TEXT & ~filters.COMMAND, connect)],
-            'DISCONNECT': [MessageHandler(filters.TEXT & ~filters.COMMAND, confirm_disconnect)]
+            'DISCONNECT': [MessageHandler(filters.TEXT & ~filters.COMMAND, confirm_disconnect)],
             'USERNAME': [MessageHandler(filters.TEXT & ~filters.COMMAND, username)]
 },
-        },
         fallbacks=[]
     )
 
