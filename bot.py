@@ -23,18 +23,28 @@ GENDER, AGE, PHOTO, SEARCH, CONNECT = range(5)
 # Start command handler
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await update.message.reply_text(
-        'Hi! I am your Dating Bot. Let\'s create your profile.\n'
-        'Are you male or female?',
+        'Dating 🇲🇲 Botမှကြိုဆိုပါတယ်။သင့်ရဲ့Profile Dataများကို ပြည့်စုံစွာပို့ပေးရန်လိုအက်ပါသည်။'
+        'သင့်ရဲ့ Telegram Usernameကိုမှတ်သားလိုက်ပါပြီ။Usernameမဖြည့်ရသေးရင်သင့်ရဲ့ TG Accမှာသွားဖြည့်ထားပါ။ ဥပမာ : @yourname'
+    )
+    return GENDER
+
+async def username(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    user_id = update.message.from_user.id
+    ref = db.reference(f'users/{user_id}')
+    ref.update({'username': update.message.text})
+    await update.message.reply_text(
+        'ကျေးဇူးပါ။ သင့်ရဲ့လိင်အမျိုးအစား (ကျား/မ)ရေွး‌ေပးပါ',
         reply_markup=ReplyKeyboardMarkup([['Male', 'Female']], one_time_keyboard=True)
     )
     return GENDER
+
 
 # Gender handler
 async def gender(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user_id = update.message.from_user.id
     ref = db.reference(f'users/{user_id}')
     ref.update({'gender': update.message.text})
-    await update.message.reply_text('Please enter your age.')
+    await update.message.reply_text('သင့်ရဲ့အသက်ကိုအတိအကျ(မှန်မှန်ကန်ကန်)ထည့်ပေးပါ.')
     return AGE
 
 # Age handler
@@ -42,7 +52,7 @@ async def age(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     user_id = update.message.from_user.id
     ref = db.reference(f'users/{user_id}')
     ref.update({'age': update.message.text})
-    await update.message.reply_text('Please send me your profile photo.')
+    await update.message.reply_text('သင့်ကိုသင်အလှဆုံးပါလို့ထင်ရသောသင့်ရဲ့မျက်နှာပါသောပုံတစ်ပုံပို့ပေးပါ။')
     return PHOTO
 
 # Photo handler
@@ -53,8 +63,11 @@ async def photo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     await photo_file.download(photo_path)
     ref = db.reference(f'users/{user_id}')
     ref.update({'photo': photo_path})
-    await update.message.reply_text('Profile created! You can now search for a partner using /search')
+    await update.message.reply_text('ကျွန်တော့်ဆီမှာသင့်ရဲ့ Profile ကိုသိမ်းထားလိုက်ပါပြီ။ကောင်မလေး(သို့)ကောင်‌ေလးရှာရန် /search ဟုပို့ပါ')
     return ConversationHandler.END
+
+#Username handle 
+
 
 # Search command handler
 async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -80,15 +93,15 @@ async def search(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 # Show partner handler
 async def show_partner(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if not context.user_data['partners']:
-        await update.message.reply_text('No more partners found.')
+        await update.message.reply_text('သင့်အတွက်ရှာမတွေ့သေးပါ။ကျွန်တော့်ဆီမှာလာရှာခိုင်းတဲ့လူတိုင်းအတွဲကိုယ်ဆီရသွားကြပါပြီ။အတွဲမဖြစ်သေးသူမရှိသေးပါ။နောက်ထပ်ကျွန်တော့်ကိုသုံးမယ့် User အသစ်များထပ်တိုးလာအောင် Share ပေးပါ။သို့မှသာ Single များထပ်တိုးလာမှာဖြစ်ပြီးသင့်အတွက်ရှာဖွေချိတ်ဆက်ပေးနိုင်မှာပါ။ကျေးဇူးပါ🥰')
         return ConversationHandler.END
 
     partner_id = context.user_data['partners'].pop()
     partner_profile = db.reference(f'users/{partner_id}').get()
 
     await update.message.reply_photo(
-        photo=open(partner_profile['photo'], 'rb'),
-        caption=f"Age: {partner_profile['age']}\nDo you like this profile?",
+        photo=open(partner_profile['username'],['photo'], 'rb'),
+        caption=f"Age: {partner_profile['age']}\nသူ့ကိုသဘောကျပါသလား???",
         reply_markup=ReplyKeyboardMarkup([['Yes', 'No']], one_time_keyboard=True)
     )
     context.user_data['current_partner'] = partner_id
@@ -102,8 +115,8 @@ async def connect(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
         db.reference(f'matches/{user_id}/{partner_id}').set(True)
         db.reference(f'matches/{partner_id}/{user_id}').set(True)
 
-        await context.bot.send_message(partner_id, f"You have a new match: {update.message.from_user.username}")
-        await update.message.reply_text(f"You are now connected with {partner_id}. Start chatting!")
+        await context.bot.send_message(partner_id, f"သင့်အတွက် Partner ချိတ်ပေးလိုက်ပါပြီ: {update.message.from_user.username}")
+        await update.message.reply_text(f"သင့်အတွက် {partner_id} နှင့်ချိတ်ဆက်ပေးလိုက်ပါပြီ။အပြန်အလှန်စကားပြောလို့ရပါပြီ။ကျေးဇူးပါ။🥰")
         return ConversationHandler.END
     else:
         return await show_partner(update, context)
@@ -115,7 +128,7 @@ async def disconnect(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
     matches = matches_ref.get()
 
     if not matches:
-        await update.message.reply_text('You have no matches to disconnect.')
+        await update.message.reply_text('သင့်ဆန္ဒအတိုင်းချိတ်ဆက်မှုကိုပြန်ဖြုတ်လိုက်ပါပြီ')
         return
 
     match_ids = list(matches.keys())
@@ -135,8 +148,8 @@ async def confirm_disconnect(update: Update, context: ContextTypes.DEFAULT_TYPE)
     db.reference(f'matches/{user_id}/{partner_id}').delete()
     db.reference(f'matches/{partner_id}/{user_id}').delete()
 
-    await update.message.reply_text(f'You have disconnected from {partner_id}.')
-    await context.bot.send_message(partner_id, f'You have been disconnected by {update.message.from_user.username}')
+    await update.message.reply_text(f'သင့်နှင့်ချိတ်ဆက်ထားသော {partner_id}  ကချိတ်ဆက်မှုကိုဖြုတ်လိုက်ပါပြီ')
+    await context.bot.send_message(partner_id, f'ချိတ်ဆက်မှုရပ်တန့်လိုက်ပါပြီ {update.message.from_user.username}')
     return ConversationHandler.END
 
 def main() -> None:
@@ -145,12 +158,14 @@ def main() -> None:
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler('start', start)],
         states={
-            GENDER: [MessageHandler(filters.TEXT & ~filters.COMMAND, gender)],
-            AGE: [MessageHandler(filters.TEXT & ~filters.COMMAND, age)],
-            PHOTO: [MessageHandler(filters.PHOTO & ~filters.COMMAND, photo)],
-            SEARCH: [CommandHandler('search', search)],
-            CONNECT: [MessageHandler(filters.TEXT & ~filters.COMMAND, connect)],
+            'GENDER': [MessageHandler(filters.TEXT & ~filters.COMMAND, gender)],
+            'AGE': [MessageHandler(filters.TEXT & ~filters.COMMAND, age)],
+            'PHOTO': [MessageHandler(filters.PHOTO & ~filters.COMMAND, photo)],
+            'SEARCH': [CommandHandler('search', search)],
+            'CONNECT': [MessageHandler(filters.TEXT & ~filters.COMMAND, connect)],
             'DISCONNECT': [MessageHandler(filters.TEXT & ~filters.COMMAND, confirm_disconnect)]
+            'USERNAME': [MessageHandler(filters.TEXT & ~filters.COMMAND, username)]
+},
         },
         fallbacks=[]
     )
