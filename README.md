@@ -1,6 +1,7 @@
 # Telegram Dating 🇲🇲 Bot
 https://img.shields.io/twitter/url?url=https%3A%2F%2Ft.me%2Fdating_mm_bot&style=flat&logo=telegram&logoColor=rgba
-<br>
+<br><!-- Place this tag where you want the button to render. -->
+<a class="github-button" href="https://github.com/YeYint899" data-color-scheme="no-preference: light; light: light; dark: dark;" data-size="large" aria-label="Follow @YeYint899 on GitHub">Follow @YeYint899</a>
 
 # Create With Python 
 <br>
