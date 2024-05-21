@@ -1,5 +1,6 @@
 # Telegram Dating 🇲🇲 Bot
-https://img.shields.io/badge/%40Telegram-Start-blue?logo=telegram&link=https%3A%2F%2Ft.me%2Fdating_mm_bot
+![Static Badge](https://img.shields.io/badge/%40Telegram-Start-blue?logo=telegram&link=https%3A%2F%2Ft.me%2Fdating_mm_bot)
+
 
 
 # Create With Python 
