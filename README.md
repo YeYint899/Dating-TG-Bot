@@ -21,8 +21,9 @@ $ workon myenv && python bot.py
 
 # Replace Your Telegram Bot Token
 <br>
+```ruby
 API_TOKEN = 'ကိုယ့်ရဲ့Tg_Bot_Tokenထည့်'
-<br>
+```<br>
 
 
 # Contact 
