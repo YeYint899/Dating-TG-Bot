@@ -3,11 +3,11 @@ from telebot.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMar
 import firebase_admin
 from firebase_admin import credentials, firestore
 
-API_TOKEN = '7137825642:AAHtZp4DldR8HrTqm87IPtRuQT2mAHlgNZs'
+API_TOKEN = 'Your_TG_Bot_Token'
 bot = telebot.TeleBot(API_TOKEN)
 
 # Firebase Admin SDK Initialization
-cred = credentials.Certificate("/home/YeYint/Tgbot/serviceAccountKey.json")
+cred = credentials.Certificate("/home/Your_file&location/serviceAccountKey.json")
 firebase_admin.initialize_app(cred)
 db = firestore.client()
 
