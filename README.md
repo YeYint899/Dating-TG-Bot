@@ -1,5 +1,5 @@
 # Telegram Dating 🇲🇲 Bot
-<h3><b>@dating_mm_bot</b> : https://t.me/dating_mm_bot <br></h3>
+https://img.shields.io/twitter/url?url=https%3A%2F%2Ft.me%2Fdating_mm_bot&style=flat&logo=telegram&logoColor=rgba
 <br>
 
 # Create With Python 
