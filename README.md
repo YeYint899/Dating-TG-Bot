@@ -2,11 +2,11 @@
 [![Actively Maintained](https://img.shields.io/badge/%40Telegram-Start_Bot-blue?logo=telegram
 )](https://t.me/dating_mm_bot)
 
+# What is it useful for?
+လက်တွဲဖော်(partena)ကိုရှာဖွေပေးသည့်Botဖြစ်သည်။
 
 
-
-# Create With Python 
-<br>
+# Create With Python
 Telegram Dating Bot ကို Python ဖြင့်သာဖန်တီးထားပါတယ်။ Database ကို Firebase သုံးထားပါတယ်။ရိုးရိုးရှင်းရှင်းနဲ့အသုံးပြုရလွယ်ကူပါတယ်။
 <br>
 
