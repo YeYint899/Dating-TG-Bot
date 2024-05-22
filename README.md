@@ -5,6 +5,10 @@
 # What is it useful for?
 လက်တွဲဖော်(partena)ကိုရှာဖွေပေးသည့်Botဖြစ်သည်။
 
+## donate
+<a href="[https://paypal.me/alanwalker89]"><img src="blue.svg" height="40"></a>  
+If you enjoyed this project — or just feeling generous, consider buying me a beer. Cheers! :beers:
+
 
 # Create With Python
 Telegram Dating Bot ကို Python ဖြင့်သာဖန်တီးထားပါတယ်။ Database ကို Firebase သုံးထားပါတယ်။ရိုးရိုးရှင်းရှင်းနဲ့အသုံးပြုရလွယ်ကူပါတယ်။
